@@ -496,7 +496,6 @@
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
         transition: .6s;
-        overflow: hidden;
     }
     .clock-all-container-closed .btn-container{
         position: absolute;
