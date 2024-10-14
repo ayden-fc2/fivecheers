@@ -62,7 +62,7 @@
    */
   const saveDocDetail = ()=>{
     try{
-      if(!vditor.value || vditor.value.getValue() === '加载中...如果长时间未响应，请尝试刷新页面。' || !isManager.value){
+      if(!vditor.value || vditor.value.getValue() === '加载中...如果长时间未响应，请尝试刷新页面。' || !checkManager()){
         return
       }
       const postResult = updateDocDetail({

@@ -20,7 +20,7 @@ export const postLog = (logOp)=>{
         return
     }
     const postUrl = baseApi + '/log/postNewLog'
-    const logUUID = localStorage.getItem('UUID')
+    const logUUID = localStorage.getItem('user') ? localStorage.getItem('user') : localStorage.getItem('UUID')
     const logIpAddress = localStorage.getItem('ipAddress')
     return axios.post(
         postUrl,

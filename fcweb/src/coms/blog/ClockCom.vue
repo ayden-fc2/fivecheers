@@ -245,7 +245,7 @@
         <div class="clock-container">
             <div class="btn-container">
                 <DownOutlined v-if="clockOpened" @click="changeClockOpened($event)"/>
-                <UpOutlined v-else style="color: #fff;" @click="changeClockOpened($event)"/>
+                <UpOutlined v-else style="color: #fff; z-index: 999;" @click="changeClockOpened($event)"/>
             </div>
             <div class="other-container">
                 <!--时钟-->
@@ -496,6 +496,17 @@
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
         transition: .6s;
+        overflow: hidden;
+    }
+    .clock-all-container-closed .btn-container{
+        position: absolute;
+        left: 0%;
+        top: 0;
+        bottom: 0;
+        right: 0;
+    }
+    .clock-all-container-closed .other-container {
+        opacity: 0;
     }
     .clock-closed-number{
         position: absolute;

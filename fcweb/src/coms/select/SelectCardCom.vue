@@ -173,6 +173,7 @@ const jumpToYYM = ()=>{
     transition: .4s;
   }
   .buttons_container-ani .default_select_button{
+    background-color: white;
     animation: btn-ani 2s 1;
     animation-delay: -0.4s;
   }
