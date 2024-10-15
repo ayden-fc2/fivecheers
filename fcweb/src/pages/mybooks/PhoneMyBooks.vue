@@ -9,13 +9,14 @@ import AddNewCostCom from "@/coms/cost/AddNewCostCom.vue";
 import UpdateCostCom from "@/coms/cost/UpdateCostCom.vue";
 import router from "@/router/router";
 import DefaultBackground from "@/coms/all/DefaultBackground.vue";
-import {getAllCostSumApi} from "@/js/apihelper";
+import {getAllCostSumApi, getMonthAnalysisByMonthApi} from "@/js/apihelper";
 import {message} from "ant-design-vue";
 
 const windowHeight = document.body.clientHeight
 
 onMounted(()=>{
   getMoney()
+  getMonthCost()
 })
 
 const currentMode = ref(1)
@@ -26,6 +27,7 @@ const changeMode = (newMode)=>{
   }
 }
 const money = ref(0)
+const monthCost = ref(0)
 const getMoney = ()=>{
   const getResult = getAllCostSumApi()
   getResult.then(response=>{
@@ -33,6 +35,21 @@ const getMoney = ()=>{
   }).catch((e)=>{
     console.log(e)
     message.error('获取余额失败')
+  })
+}
+const getMonthCost = ()=>{
+  const currentDate = new Date(); // 获取当前日期
+  const year = currentDate.getFullYear(); // 获取当前年份
+  const month = currentDate.getMonth() + 1;
+  const getResult = getMonthAnalysisByMonthApi({
+    year: year,
+    month: month
+  })
+  getResult.then(res=>{
+    monthCost.value = -1 * res.data.outNum
+  }).catch((e)=>{
+    console.log(e)
+    message.error('获取月度统计失败')
   })
 }
 
@@ -54,7 +71,7 @@ const getMoney = ()=>{
       <a-button class="mode-btn" @click="changeMode(3)" :type="currentMode===3 ? 'primary' : 'default'">统计</a-button>
     </div>
     <div class="money-container" v-if="checkManager()">
-      余额：{{money}}
+      月花销：{{ monthCost }}  |  余额：{{money}}
     </div>
     <!--不展示-->
     <div class="other-container" v-else>

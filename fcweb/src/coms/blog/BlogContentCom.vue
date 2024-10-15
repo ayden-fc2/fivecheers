@@ -9,8 +9,10 @@
   import AiHelperCom from "@/coms/blog/AiHelperCom.vue";
   
 
+  const contentLoaded = ref(false)
   const selectNodeHandler = async (nodeKey) => {
       await saveDocDetail();
+      contentLoaded.value = false;
       getDocDetail(nodeKey);
   };
 
@@ -49,6 +51,7 @@
         docNodeKey.value = response.data.blogKey
         if(isManager.value ){
           vditor.value.setValue(decodeURIComponent(response.data.content))
+          contentLoaded.value = true
         }else{
           Vditor.preview(document.getElementById(`vditor`), decodeURIComponent(response.data.content), {});
           document.getElementById(`vditor`).style.padding = '0 24px'
@@ -62,7 +65,7 @@
    */
   const saveDocDetail = ()=>{
     try{
-      if(!vditor.value || vditor.value.getValue() === '加载中...如果长时间未响应，请尝试刷新页面。' || !checkManager()){
+      if(!vditor.value || vditor.value.getValue() === '加载中...如果长时间未响应，请尝试刷新页面。' || !checkManager() || !contentLoaded.value){
         return
       }
       const postResult = updateDocDetail({

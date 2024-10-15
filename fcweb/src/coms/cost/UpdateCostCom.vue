@@ -69,18 +69,31 @@ const updateCost = (postData)=>{
   })
 }
 
-const yearMonth = ref(dayjs(moment().format('YYYY-MM'), 'YYYY-MM'))
-const getListByYear = ()=>{
+const getTODO = ()=>{
   const getResult = getCostByYearApi(yearMonth.value.year())
   getResult.then(res=>{
     if(res.data){
-      list.value = res.data
+      console.log(res.data)
+      list.value = res.data.filter(item=>item.countDetail && item.countDetail.includes('TODO'))
       message.success('获取成功')
       return
     }
     message.error('获取失败')
   })
 }
+
+const yearMonth = ref(dayjs(moment().format('YYYY-MM'), 'YYYY-MM'))
+// const getListByYear = ()=>{
+//   const getResult = getCostByYearApi(yearMonth.value.year())
+//   getResult.then(res=>{
+//     if(res.data){
+//       list.value = res.data
+//       message.success('获取成功')
+//       return
+//     }
+//     message.error('获取失败')
+//   })
+// }
 const getListByMonth = ()=>{
   const getResult = getCostByMonthApi({
     year: yearMonth.value.year(),
@@ -107,8 +120,9 @@ onMounted(()=>{
     <!--查询方式-->
     <div class="method-container">
       <a-date-picker size="small" v-model:value="yearMonth" picker="month" />
-      <a-button type="primary" size="small" @click="getListByYear">按年查询</a-button>
+      <!-- <a-button type="primary" size="small" @click="getListByYear">按年查询</a-button> -->
       <a-button type="primary" size="small" @click="getListByMonth">按月查询</a-button>
+      <a-button type="primary" size="small" @click="getTODO">查询TODO</a-button>
     </div>
     <!--列表-->
     <div class="list-container">
