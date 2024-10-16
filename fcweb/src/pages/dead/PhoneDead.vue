@@ -63,6 +63,8 @@ const getAllBirthday = () => {
 
       // 格式化生日
       res.data[i].birthDate = res.data[i].birthDate.replace(/-/g, '/').substring(5,10)
+      // 排序
+      res.data.sort((a, b) => a.leftDay - b.leftDay);
     }
     birthdayes.value = res.data
   }).catch(err => {
