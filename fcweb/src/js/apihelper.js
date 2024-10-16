@@ -2,7 +2,7 @@ import axios from "axios";
 import {checkManager} from "@/js/jshelper";
 
 //const gdMapKey = '1caf32ee46ec234c69a6a49e47db53e0'
-// const baseApi = 'http://localhost:4001'
+//const baseApi = 'http://localhost:4001'
 const baseApi = 'http://www.fivecheers.com:1001'
 
 /**
@@ -579,5 +579,29 @@ export const getYearAnalysisByAllApi = (year)=>{
     })
 }
 
+/**
+ * 生日助手
+ */
+export const getBirthdayListApi = ()=>{
+    const getUrl = baseApi + '/birth/getAllBirths'
+    return axios.get(getUrl)
+}
 
+export const addNewBirthdayApi = (postData)=>{
+    const postUrl = baseApi + '/birth/addBirth'
+    return axios.post(postUrl, postData,{
+        headers: {
+            'Content-Type': 'application/json' // 设置请求头
+        }
+    })
+}
+
+export const deleteBirthdayApi = (birthdayId)=>{
+    const postUrl = baseApi + '/birth/deleteBirth'
+    return axios.post(postUrl, null,{
+        params:{
+            birthId: birthdayId
+        }
+    })
+}
 

@@ -44,7 +44,7 @@ const jumpToYYM = ()=>{
         <button class="default_select_button building" @click="jumphelper.jumpToMyTravel()">旅行足迹</button>
         <button class="default_select_button manager" @click="jumphelper.jumpToLeftAMsg()">访客记录</button>
         <button class="default_select_button manager" @click="jumphelper.jumpToMyBooks()">查账记账</button>
-        <button class="default_select_button manager" @click="jumphelper.jumpToDead()">生日</button>
+        <button class="default_select_button manager" @click="jumphelper.jumpToDead()">生日助手</button>
         <button class="default_select_button custom_select_button2" @click="jumpToYYM">旧版于眉</button>
       </div>
     </div>
