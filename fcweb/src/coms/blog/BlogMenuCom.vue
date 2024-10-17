@@ -5,7 +5,9 @@ import {onMounted, ref} from "vue";
   import {keyToJSONObject} from './utils/keyToJsonobject'
 import {addNewBrotherDoc, addNewChildDoc, deleteDoc, getAllBlogKeys, renameDoc} from "@/js/apihelper";
 import {message} from "ant-design-vue";
-import {bus} from "vue3-eventbus";
+import { useRouter, useRoute } from 'vue-router'
+
+  const route = useRoute()
 
   onMounted(async () => {
     isManager.value = await checkManager();
@@ -15,7 +17,12 @@ import {bus} from "vue3-eventbus";
       const finalResult = keyToJSONObject(response.data)
       menuList.value = finalResult.JSONObj
       allNodeKeys.value = finalResult.allNodeKeys
-      selectNode('1-0-0-0')
+      // 首次加载时检查并调用 selectNodeHandler
+      const initialSelectedKey = route.query.selectedKey;
+      if (initialSelectedKey) {
+        selectedKeys.value[0] = initialSelectedKey
+      }
+      selectNode()
     }).catch(e=>{
       message.error('获取列表失败')
       console.log(e)
@@ -69,8 +76,11 @@ import {bus} from "vue3-eventbus";
   /**
    * 左键
    */
+   const router = useRouter()
   const selectNode = () => {
-    bus.emit('selectNode',selectedKeys.value[0])
+    const selectedKey = selectedKeys.value[0]
+    router.replace({ query: { ...router.currentRoute.value.query, selectedKey } })
+    // bus.emit('selectNode',selectedKeys.value[0])
   }
 
   /**

@@ -1,12 +1,15 @@
 <script setup>
   import Vditor from 'vditor'
   import 'vditor/dist/index.css';
-  import {onBeforeUnmount, onMounted, ref} from "vue";
+  import {onBeforeUnmount, onMounted, ref, watch} from "vue";
   import {checkManager} from "@/js/jshelper";
   import {bus} from "vue3-eventbus";
   import {getDocDetailApi, updateDocDetail} from "@/js/apihelper";
   import {message} from "ant-design-vue";
   import AiHelperCom from "@/coms/blog/AiHelperCom.vue";
+  import { useRoute } from 'vue-router'
+
+  const route = useRoute()
   
 
   const contentLoaded = ref(false)
@@ -19,7 +22,16 @@
   onMounted(async () => {
       isManager.value = checkManager();
       vditor.value = new Vditor('vditor', options.value);
-      bus.on('selectNode', selectNodeHandler);
+      // 首次加载时检查并调用 selectNodeHandler
+      const initialSelectedKey = route.query.selectedKey;
+      if (initialSelectedKey) {
+          selectNodeHandler(initialSelectedKey);
+      }
+      watch(() => route.query.selectedKey, (newSelectedKey) => {
+        if (newSelectedKey) {
+          selectNodeHandler(newSelectedKey); // 调用处理函数
+        }
+      });
       window.addEventListener('beforeunload', async (event) => {
         await saveDocDetail();
         event.returnValue = '文件已保存'; 
