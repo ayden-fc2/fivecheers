@@ -6,11 +6,11 @@
 
 <script setup>
   import {onMounted} from "vue";
-  import {postLog} from "@/js/apihelper";
+  // import {postLog} from "@/js/apihelper";
 
   onMounted(()=>{
-    const devicetype = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) < 768 ? 'phone' : 'desktop';
-    postLog(`访问五盏-${devicetype}`)
+    // const devicetype = (window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth) < 768 ? 'phone' : 'desktop';
+    // postLog(`访问五盏-${devicetype}`)
   })
 
 

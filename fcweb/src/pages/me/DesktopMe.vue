@@ -8,6 +8,7 @@ import {message} from "ant-design-vue";
 import {onMounted, ref} from "vue";
 import {getMeList} from "@/js/apihelper";
 import DefaultBackground from "@/coms/all/DefaultBackground.vue";
+import {postLog} from "@/js/apihelper";
 
 const name = ref(null);
 const contact_wechat = ref(null);
@@ -20,6 +21,7 @@ const ai = ref([])
 const other = ref([])
 
 onMounted(()=>{
+  postLog('访问-我（桌面）')
   const meListResult = getMeList()
   meListResult.then(response=>{
     name.value = response.data.name

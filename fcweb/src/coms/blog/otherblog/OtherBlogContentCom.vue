@@ -7,6 +7,7 @@
   import {getDocDetailApiOther, updateDocDetailOther} from "@/js/apihelper";
   import ClockCom from '../ClockCom.vue';
   import { useRoute } from 'vue-router'
+  import {postLog} from "@/js/apihelper";
 
   const route = useRoute()
 
@@ -24,6 +25,7 @@
 
   const user = ref(null)
   onMounted( async ()=>{
+    postLog('访问-共享空间')
     user.value = localStorage.getItem('user')
     vditor.value = new Vditor('vditor',options.value)
     // 首次加载时检查并调用 selectNodeHandler

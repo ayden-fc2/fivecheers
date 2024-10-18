@@ -2,7 +2,7 @@ import axios from "axios";
 import {checkManager} from "@/js/jshelper";
 
 //const gdMapKey = '1caf32ee46ec234c69a6a49e47db53e0'
-//const baseApi = 'http://localhost:4001'
+// const baseApi = 'http://localhost:4001'
 const baseApi = 'http://www.fivecheers.com:1001'
 
 /**
@@ -30,6 +30,31 @@ export const postLog = (logOp)=>{
                 logOp:logOp,
                 logUUID:logUUID,
                 logIpAddress:logIpAddress
+            }
+        }
+    )
+}
+
+export const getLogByUUID = (logUUID)=>{
+    const getUrl = baseApi + '/log/getLogsByUUID'
+    return axios.get(
+        getUrl,
+        {
+            params:{
+                logUUID: logUUID
+            }
+        }
+    )
+}
+
+export const getLogPageApi = (logProps)=>{
+    const getUrl = baseApi + '/log/getLogsByPage'
+    return axios.get(
+        getUrl,
+        {
+            params:{
+                page: logProps.page,
+                pageSize: logProps.pageSize
             }
         }
     )

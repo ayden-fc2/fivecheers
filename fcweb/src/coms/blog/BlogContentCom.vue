@@ -4,7 +4,7 @@
   import {onBeforeUnmount, onMounted, ref, watch} from "vue";
   import {checkManager} from "@/js/jshelper";
   import {bus} from "vue3-eventbus";
-  import {getDocDetailApi, updateDocDetail} from "@/js/apihelper";
+  import {getDocDetailApi, updateDocDetail, logPost} from "@/js/apihelper";
   import {message} from "ant-design-vue";
   import AiHelperCom from "@/coms/blog/AiHelperCom.vue";
   import { useRoute } from 'vue-router'
@@ -30,6 +30,7 @@
       watch(() => route.query.selectedKey, (newSelectedKey) => {
         if (newSelectedKey) {
           selectNodeHandler(newSelectedKey); // 调用处理函数
+          logPost('查看博客'+ newSelectedKey)
         }
       });
       window.addEventListener('beforeunload', async (event) => {

@@ -43,14 +43,14 @@ const downloadFile = (spaceIndex, fileIndex)=>{
   const fileUrl = spaces.value[spaceIndex].spaceFiles[fileIndex]
   window.location.href = fileUrl
 }
-const likeSpace = (spaceId, spaceIndex)=>{
+const likeSpace = (spaceId, spaceIndex, spaceContent)=>{
   if (beforeLike(spaceId)){
     const postResult = likeSpaceApi(spaceId)
     postResult.then(response=>{
       if (response.data){
         saveLikedData()
         message.success('谢谢喜欢:D')
-        postLog('空间点赞，spaceId为'+spaceId)
+        postLog('空间点赞，内容：'+spaceContent)
         spaces.value[spaceIndex].likeNum += 1
       }else {
         message.error('点赞失败')
@@ -60,7 +60,7 @@ const likeSpace = (spaceId, spaceIndex)=>{
       console.log(e)
     })
   }else{
-    message.warn('每天只能给每条说说点10个赞')
+    message.warn('每天只能给每条说说点1个赞')
   }
 
 }
@@ -87,7 +87,7 @@ const beforeLike = (spaceId)=>{
   console.log(filteredArray)
   if (filteredArray.length>0){
     for (const filteredArrayElement of filteredArray) {
-      if (filteredArrayElement.time === getNowTime() && filteredArrayElement.num >= 10){
+      if (filteredArrayElement.time === getNowTime() && filteredArrayElement.num >= 1){
         return false
       }else if (filteredArrayElement.time !== getNowTime()){
         filteredArrayElement.time = getNowTime()
@@ -150,7 +150,7 @@ const getNowTime = ()=>{
             </div>
           </div>
           <div class="like_container">
-            <LikeOutlined class="like" @click="likeSpace(space.spaceId, spaceIndex)"/>
+            <LikeOutlined class="like" @click="likeSpace(space.spaceId, spaceIndex, space.spaceContent)"/>
             {{ space.likeNum }}
           </div>
         </div>

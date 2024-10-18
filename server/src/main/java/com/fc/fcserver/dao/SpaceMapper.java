@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface SpaceMapper {
 
-    @Insert("INSERT INTO v2_space_st(space_content, space_imgs, space_files, like_num) VALUES (#{spaceContent}, #{spaceImgs}, #{spaceFiles}, 0)")
+    @Insert("INSERT INTO v2_space_st(space_content, space_imgs, space_files, like_num) VALUES (#{spaceContent}, #{spaceImgs}, #{spaceFiles}, FLOOR(5 + RAND() * 6))")
     boolean insertOne(@Param("spaceContent") String spaceContent, @Param("spaceImgs") String spaceImgs, @Param("spaceFiles") String spaceFiles);
 
     @Delete("DELETE FROM v2_space_st WHERE space_id = #{spaceId}")
