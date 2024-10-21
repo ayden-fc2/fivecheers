@@ -7,5 +7,9 @@ public interface AmideadService {
 
     boolean updateTime();
 
-    boolean updateGiftStill();
+    String updateGiftStill(int secret);
+
+    V2AmideadSt getAmideadAll();
+
+    boolean updateAmideadAll(V2AmideadSt amideadSt);
 }

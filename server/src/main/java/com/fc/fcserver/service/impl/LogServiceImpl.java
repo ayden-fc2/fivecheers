@@ -22,7 +22,7 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public List<V2LogSt> getLogsByPage(int page, int pageSize) {
-        return lm.getLogsByPage(page, pageSize);
+        return lm.getLogsByPage(page*pageSize, pageSize);
     }
 
     @Override

@@ -23,7 +23,23 @@ public class AmideadServiceImpl implements AmideadService {
     }
 
     @Override
-    public boolean updateGiftStill() {
-        return am.updateGiftStill();
+    public String updateGiftStill(int secret) {
+        int rightSecert = am.getRightSecret();
+        if (secret == rightSecert) {
+            if(am.updateGiftStill()){
+                return am.getGiftUrl();
+            }
+        }
+        return "false";
+    }
+
+    @Override
+    public V2AmideadSt getAmideadAll() {
+        return am.getAmideadAll();
+    }
+
+    @Override
+    public boolean updateAmideadAll(V2AmideadSt amideadSt) {
+        return am.updateAmideadAll(amideadSt);
     }
 }
