@@ -59,6 +59,7 @@ const insertFuc = ()=>{
         <h3>图片</h3>
         <a-upload
             action="http://www.fivecheers.com:1001/file/defaultUpLoadFile"
+            :multiple="true"
             @change="handleImgUploadChange">
           <a-button style="margin-top: 8px">
             <upload-outlined></upload-outlined>

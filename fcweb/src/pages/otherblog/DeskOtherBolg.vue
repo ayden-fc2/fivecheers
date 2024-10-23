@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="blog-page-container" v-if="userLogined">
-      <LeftOutlined @click="jumphelper.jumpToMyBlog()" style="transform: translateX(-14px)" class="home_icon"/>
+      <LeftOutlined @click="handleJump" style="transform: translateX(-14px)" class="home_icon"/>
       <!--树形折叠导航栏，可折叠，管理员可编辑-->
       <OtherBlogMenuCom class="blog-menu-com"/>
       <!--滚动页面，包括文章属性、博客区（md组件）、评论区-->
       <div class="scroll-page">
-        <OtherBlogContentCom/>
+        <OtherBlogContentCom ref="blogContent" />
         <OtherBlogCommentCom/>
       </div>
     </div>
@@ -31,6 +31,14 @@ import {message} from "ant-design-vue";
 import OtherBlogMenuCom from "@/coms/blog/otherblog/OtherBlogMenuCom.vue";
 import OtherBlogContentCom from "@/coms/blog/otherblog/OtherBlogContentCom.vue";
 import OtherBlogCommentCom from "@/coms/blog/otherblog/OtherBlogCommentCom.vue";
+
+
+const blogContent = ref(null);
+const handleJump = ()=>{
+  // 管理员可编辑，退出前保存
+  blogContent.value.saveDocDetail();
+  jumphelper.jumpToMyBlog()
+}
 
 onMounted(()=>{
   user.value = localStorage.getItem('user')

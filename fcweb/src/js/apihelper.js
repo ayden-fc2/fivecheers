@@ -19,6 +19,34 @@ export const postLog = (logOp)=>{
     if(checkManager()){
         return
     }
+    // 首次访问没拿到IP，杜绝ip未知（很丑的补丁）
+    if(!localStorage.getItem('ipAddress')){
+        // 获取ip
+        const getResult = getIpAddress()
+        getResult.then(response=>{
+            const ipAddress =
+                'location:'+response.data.country+response.data.province+response.data.area+response.data.city+
+                ' ip:'+response.data.ip+
+                ' isp:'+response.data.isp
+            localStorage.setItem('ipAddress',ipAddress)
+            // 直接post记录
+            const postUrl = baseApi + '/log/postNewLog'
+            const logUUID = localStorage.getItem('user') ? localStorage.getItem('user') : localStorage.getItem('UUID')
+            const logIpAddress = localStorage.getItem('ipAddress')
+            return axios.post(
+                postUrl,
+                null,
+                {
+                    params:{
+                        logOp:logOp,
+                        logUUID:logUUID,
+                        logIpAddress:logIpAddress
+                    }
+                }
+            )
+        })
+        return
+    }
     const postUrl = baseApi + '/log/postNewLog'
     const logUUID = localStorage.getItem('user') ? localStorage.getItem('user') : localStorage.getItem('UUID')
     const logIpAddress = localStorage.getItem('ipAddress')
@@ -274,11 +302,29 @@ export const refreshDeadTime = ()=>{
     return axios.post(postUrl)
 }
 //宝藏已经被发现
-export const refreshDeadGift = ()=>{
+export const refreshDeadGift = (secret)=>{
     const postUrl = baseApi + '/amidead/updateGiftStill'
-    return axios.post(postUrl)
+    return axios.post(postUrl, null, {
+        params:{
+            secret: secret
+        }
+    })
+}
+// 管理员获取全部信息
+export const getAllDeadInfo = ()=>{
+    const getUrl = baseApi + '/amidead/getAmideadAll'
+    return axios.get(getUrl)
 }
 
+// 管理员更改全部信息
+export const changeAllDeadInfo = (postData)=>{
+    const postUrl = baseApi + '/amidead/updateAmideadAll'
+    return axios.post(postUrl, postData,{
+        headers: {
+            'Content-Type': 'application/json' // 设置请求头
+        }
+    })  
+}
 /**
  * Blog
  */

@@ -4,10 +4,37 @@ import {jumphelper} from "@/js/jumphelper";
 import {message} from "ant-design-vue";
 import {ref, onMounted} from "vue";
 import { useStore } from "vuex";
+import { timeCorrect, checkManager } from "@/js/jshelper";
+import {getBirthdayListApi} from '@/js/apihelper'
+
+// 获取最近的生日还有多少天
+const getClosestBirthday = () => {
+    const getResult = getBirthdayListApi()
+    getResult.then(res => {
+      for(let i = 0; i < res.data.length; i++){
+        res.data[i].birthDate = timeCorrect(res.data[i].birthDate)
+        // 下个生日还有多少天
+        const today = new Date();
+        const nextBirthday = new Date(today.getFullYear(), new Date(res.data[i].birthDate).getMonth(), new Date(res.data[i].birthDate).getDate());
+        if (nextBirthday < today) {
+            nextBirthday.setFullYear(today.getFullYear() + 1);
+        }
+        res.data[i].leftDay = Math.ceil((nextBirthday - today) / (24 * 3600 * 1000)); // 转换成天数
+      }
+      // 找到leftDay最小的生日
+      const closestBirthday = res.data.reduce((prev, current) => {
+        return (prev.leftDay < current.leftDay) ? prev : current;
+      });
+      message.info('距离' + closestBirthday.birthName + '的生日还有' + closestBirthday.leftDay + '天')
+    })
+  }
 
 const store = useStore();
 const playAni = ref(true)
 onMounted(()=>{
+  if(checkManager()){
+    getClosestBirthday()
+  }
   if(!store.getters.getCardAniPlayer){
     playAni.value = true;
     store.commit("setCardAniPlayer",true)

@@ -1,10 +1,10 @@
 <script setup>
   import Vditor from 'vditor'
   import 'vditor/dist/index.css';
-  import {onBeforeUnmount, onMounted, ref, watch} from "vue";
+  import {onBeforeUnmount, onMounted, ref, watch, defineExpose} from "vue";
   import {checkManager} from "@/js/jshelper";
   import {bus} from "vue3-eventbus";
-  import {getDocDetailApi, updateDocDetail, logPost} from "@/js/apihelper";
+  import {getDocDetailApi, updateDocDetail, postLog} from "@/js/apihelper";
   import {message} from "ant-design-vue";
   import AiHelperCom from "@/coms/blog/AiHelperCom.vue";
   import { useRoute } from 'vue-router'
@@ -30,7 +30,7 @@
       watch(() => route.query.selectedKey, (newSelectedKey) => {
         if (newSelectedKey) {
           selectNodeHandler(newSelectedKey); // 调用处理函数
-          logPost('查看博客'+ newSelectedKey)
+          postLog('查看博客'+ newSelectedKey)
         }
       });
       window.addEventListener('beforeunload', async (event) => {
@@ -88,6 +88,7 @@
       postResult.then(response=>{
         if(response.data){
           message.success('保存成功')
+          console.log('保存成功')
           return
         }
         message.error('保存失败')
@@ -97,7 +98,9 @@
     }
   }
 
-
+  defineExpose({
+    saveDocDetail,
+  })
 
   /**
    * 获取当前文本内容

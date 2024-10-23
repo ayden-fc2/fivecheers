@@ -114,24 +114,20 @@ const updateGift = ()=>{
   openModal.value = true
 }
 const handleUpdateGift = ()=>{
-  if (Number(giftPassword.value) === deadInfo.value.amIDead){
-    const postResult = refreshDeadGift()
+  const postResult = refreshDeadGift(Number(giftPassword.value))
     postResult.then(response=>{
-      if (response.data){
-        message.success('更新成功')
-        jumphelper.jumpToSelect()
+      console.log(response.data)
+      if (response.data !== false){
+        message.success('更新成功，已下载藏宝图')
+        downloadFile(response.data)
       }else{
-        message.error('未知错误，请重试')
+        message.error('密码错误')
       }
     })
-  }else{
-    message.error('密码错误')
-  }
 }
-const downloadFile = ()=>{
-  window.location.href = deadInfo.value.giftUrl
+const downloadFile = (downloadFile)=>{
+  window.location.href = downloadFile
 }
-
 
 </script>
 
@@ -182,10 +178,10 @@ const downloadFile = ()=>{
     <!--死了-->
     <div v-if="dead && showCheck" class="dead-container">
       <h3>{{ deadInfo.lastWord }}</h3>
-      <h4 v-if="deadInfo.giftStill" @click="updateGift">东西还在</h4>
-      <h4 v-else>来晚了，东西已经没了</h4>
+      <h4 v-if="deadInfo.giftStill" @click="updateGift">宝藏还在</h4>
+      <h4 v-else>来晚了，宝藏已经被取走了</h4>
       <div>
-        <a-button @click="downloadFile" type="primary">下载遗书</a-button>
+        <a-button @click="downloadFile(deadInfo.mapUrl)" type="primary">下载遗书</a-button>
         <a-button @click="cancleCheck">取消</a-button>
       </div>
     </div>

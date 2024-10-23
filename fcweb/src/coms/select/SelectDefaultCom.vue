@@ -9,7 +9,7 @@ const closeSelectCard = ()=>{
 <template>
   <div class="select_com_background">
     <div @click="closeSelectCard()" style="position: fixed; left: 0; right: 0; top: 0; bottom: 0"></div>
-    <h2>- Default -</h2>
+    <h2>- 遗书与藏宝图 -</h2>
     <div class="select_com_card">
 
     </div>

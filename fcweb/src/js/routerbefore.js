@@ -9,6 +9,7 @@ import { message } from 'ant-design-vue';
  * @param next
  */
 export const routerbefore = (path,next)=>{
+    console.log('routerbefore')
     //获取UUID，ip，time
     const UUID = localStorage.getItem('UUID')
     const ipAddress = localStorage.getItem('ipAddress')

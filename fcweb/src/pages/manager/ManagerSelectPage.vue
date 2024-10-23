@@ -2,6 +2,7 @@
 import {
   HomeOutlined,
 } from '@ant-design/icons-vue';
+import {refreshDeadTime} from '@/js/apihelper'
 import {jumphelper} from "@/js/jumphelper";
 import {onMounted, onUnmounted, ref} from 'vue';
 import SelectDefaultCom from "@/coms/select/SelectDefaultCom.vue";
@@ -12,7 +13,8 @@ import PlanChangeCom from "@/coms/manager/PlanChangeCom.vue";
 import SpaceInsertCom from "@/coms/manager/SpaceInsertCom.vue";
 import SpaceUpdateCom from "@/coms/manager/SpaceUpdateCom.vue";
 import {message} from "ant-design-vue";
-const activeKey = ref(null);
+import UpdateDead from '@/coms/manager/UpdateDead.vue';
+const activeKey = ref([]);
 onMounted(()=>{
   bus.on('closeSelectCard',()=>{
     Object.keys(comsOn.value).forEach(key => {
@@ -37,6 +39,8 @@ const selectCom = (comName)=>{
       break;
     case 'spaceUpdate': comsOn.value.spaceUpdate = true;
       break;
+    case 'updateDead': comsOn.value.updateDead = true;
+      break;
   }
 }
 const comsOn = ref({
@@ -45,8 +49,18 @@ const comsOn = ref({
   planInsert: false,
   planChange: false,
   spaceInsert: false,
-  spaceUpdate: false
+  spaceUpdate: false,
+  updateDead: false,
 })
+
+const imAlive = ()=>{
+  const postResult = refreshDeadTime()
+  postResult.then(response=>{
+    if (response.data){
+      message.success('更新成功')
+    }
+  })
+}
 
 const logOut = ()=>{
   localStorage.removeItem('managerSecret')
@@ -67,50 +81,25 @@ const logOut = ()=>{
             <a-button @click="selectCom('default')">default</a-button>
           </div>
         </a-collapse-panel>
-        <a-collapse-panel key="2" header="我的开源">
-          <div class="manager_select_panel">
-
-          </div>
-        </a-collapse-panel>
-        <a-collapse-panel key="3" header="我的空间">
+        <a-collapse-panel key="2" header="我的空间">
           <div class="manager_select_panel">
             <a-button @click="selectCom('spaceInsert')">发布说说</a-button>
             <a-button @click="selectCom('spaceUpdate')">编辑说说</a-button>
           </div>
         </a-collapse-panel>
-        <a-collapse-panel key="4" header="人生逆旅">
+        <a-collapse-panel key="3" header="人生逆旅">
           <div class="manager_select_panel">
             <a-button @click="selectCom('planInsert')">增加年度挑战</a-button>
             <a-button @click="selectCom('planChange')">编辑年度挑战</a-button>
           </div>
         </a-collapse-panel>
-        <a-collapse-panel key="5" header="吃吃喝喝">
+        <a-collapse-panel key="4" header="遗书与藏宝图">
           <div class="manager_select_panel">
-
+            <a-button @click="selectCom('updateDead')">修改遗书与藏宝图</a-button>
+            <a-button @click="imAlive()">我TM没死</a-button>
           </div>
         </a-collapse-panel>
-        <a-collapse-panel key="6" header="旅行足迹">
-          <div class="manager_select_panel">
-
-          </div>
-        </a-collapse-panel>
-
-        <a-collapse-panel key="7" header="头脑风暴">
-          <div class="manager_select_panel">
-
-          </div>
-        </a-collapse-panel>
-        <a-collapse-panel key="8" header="音乐">
-          <div class="manager_select_panel">
-
-          </div>
-        </a-collapse-panel>
-        <a-collapse-panel key="9" header="给我留言">
-          <div class="manager_select_panel">
-
-          </div>
-        </a-collapse-panel>
-        <a-collapse-panel key="10" header="退出登录">
+        <a-collapse-panel key="5" header="退出登录">
           <div class="manager_select_panel">
             <a-button @click="logOut">退出登录</a-button>
           </div>
@@ -135,7 +124,9 @@ const logOut = ()=>{
     <transition name="fade">
       <SpaceUpdateCom v-if="comsOn.spaceUpdate"/>
     </transition>
-
+    <transition name="fade">
+      <UpdateDead v-if="comsOn.updateDead"/>
+    </transition>
   </div>
 </template>
 

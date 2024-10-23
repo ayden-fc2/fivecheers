@@ -1,7 +1,7 @@
 <script setup>
   import Vditor from 'vditor'
   import 'vditor/dist/index.css';
-  import {onBeforeUnmount, onMounted, ref, watch} from "vue";
+  import {onBeforeUnmount, onMounted, ref, watch, defineExpose} from "vue";
   import {bus} from "vue3-eventbus";
   import {message} from "ant-design-vue";
   import {getDocDetailApiOther, updateDocDetailOther} from "@/js/apihelper";
@@ -102,6 +102,9 @@
     }
   }
 
+  defineExpose({
+    saveDocDetail,
+  })
 
 
   /**

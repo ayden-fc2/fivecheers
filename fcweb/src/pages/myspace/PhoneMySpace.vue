@@ -18,6 +18,7 @@ onMounted(()=>{
   getLikedData()
   bus.on('closeSelectCard', ()=>{
     open.value = false
+    currentParams.value.startIndex = 0
     cardShowing.value = 0
     spaces.value = []
     getSpace()
