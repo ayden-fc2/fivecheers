@@ -325,10 +325,42 @@
                 </div>
             </div>
         </div>
+        <!--休息-->
+        <div class="rest-container" v-if="restMode">
+            <h1>Taking a Break ...</h1>
+            <h2>Will Be Back in <strong>{{ clockNumber }}</strong> Minutes</h2>
+        </div>
     </div>
 </template>
 
 <style scoped>
+    .rest-container{
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: auto;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        white-space: nowrap;
+        backdrop-filter: blur(4px);
+        animation: jump-out .8s 1;
+    }
+    .rest-container h1{
+        font-size: 88px;
+        color: #739dec;
+    }
+    .rest-container h2{
+        font-size: 32px;
+        color: #666;
+    }
+    .rest-container h2 strong{
+        font-size: 64px;
+        color: #f396d7;
+    }
     .clock-all-container{
         position: fixed;
         z-index: 9999;
