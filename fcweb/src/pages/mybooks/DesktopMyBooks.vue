@@ -302,6 +302,18 @@ const allAnalysis = ref({
     textStyle: {
       fontSize: 8,
     },
+    selected: {
+      '总收支': false,
+      '收入': false,
+      '支出': true, // 默认只选中 '支出'
+      '吃喝': false,
+      '玩乐': false,
+      '住宿': false,
+      '旅行': false,
+      '生活花销': false,
+      '大宗商品': false,
+      '其他': false
+    },
     itemWidth: 10,
     itemHeight: 8,
   },

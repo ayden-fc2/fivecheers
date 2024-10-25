@@ -52,10 +52,10 @@
     }
     const restMode = ref(false)
     const clockSettings = ref({
-        restLength: 30,
-        workLength: 90
+        restLength: 20,
+        workLength: 50
     })
-    const clockNumber = ref(90)
+    const clockNumber = ref(50)
     const allWorkTime = ref(0)
     const clockInterval = ref(null)
     const paused = ref(true)
