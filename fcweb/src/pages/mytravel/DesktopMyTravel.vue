@@ -4,6 +4,12 @@ import {
 } from '@ant-design/icons-vue';
 import {jumphelper} from "@/js/jumphelper";
 import BuildingCom from "@/coms/all/BuildingCom.vue";
+import {postLog} from "@/js/apihelper";
+import {onMounted} from "vue";
+
+onMounted(() => {
+  postLog('访问-桌面旅行日志')
+})
 
 
 </script>

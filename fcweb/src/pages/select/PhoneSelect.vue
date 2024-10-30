@@ -4,6 +4,12 @@ import {jumphelper} from "@/js/jumphelper";
 import BackgroundCom from "@/coms/select/BackgroundCom.vue";
 import {LeftOutlined} from "@ant-design/icons-vue";
 import {checkManager} from "@/js/jshelper";
+// import { postLog } from "@/js/apihelper";
+import { onMounted } from "vue";
+
+onMounted(()=>{
+  // postLog('访问-手机选择页')
+})
 
 const beforeJumpToManager = ()=>{
   if(checkManager()){

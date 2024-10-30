@@ -3,14 +3,19 @@ import {
   HomeOutlined,
 } from '@ant-design/icons-vue';
 import {jumphelper} from "@/js/jumphelper";
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 // import DefaultBackground from "@/coms/all/DefaultBackground.vue";
 // import BuildingCom from "@/coms/all/BuildingCom.vue";
+import {postLog} from "@/js/apihelper";
 
 const showToast = ref(true);
 setTimeout(() => {
   showToast.value = false;
 }, 10000);
+
+onMounted(()=>{
+  postLog('访问-手机音乐')
+})
 
 </script>
 

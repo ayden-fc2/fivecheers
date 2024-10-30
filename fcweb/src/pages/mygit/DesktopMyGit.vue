@@ -10,6 +10,7 @@ import {deleteMyGit, selectMyGit} from "@/js/apihelper";
 import {message} from "ant-design-vue";
 import {timeCorrect} from "@/js/jshelper";
 import NewGitCom from "@/coms/mygit/NewGitCom.vue";
+import {postLog} from "@/js/apihelper";
 // import DefaultBackground from "@/coms/all/DefaultBackground.vue";
 
 const newVideoShow = ()=>{
@@ -22,6 +23,7 @@ const currentProps = ref({
   length: 2
 })
 const pushVideos = async () => {
+  postLog('查看更多-作品集')
   try {
     let scrollElem = scrollDiv.value;
     var currentTop = scrollElem.scrollTop;
@@ -56,6 +58,7 @@ onMounted(()=>{
   bus.on('setCardShowingFalse',()=>{
     window.location.reload();
   })
+  postLog('访问-桌面作品集')
 })
 const deleteMG = (gitId)=>{
   const postResult = deleteMyGit(gitId)

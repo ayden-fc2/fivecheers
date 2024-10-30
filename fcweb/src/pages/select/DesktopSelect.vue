@@ -4,6 +4,12 @@ import BackgroundCom from "@/coms/select/BackgroundCom.vue";
 import {LeftOutlined} from "@ant-design/icons-vue";
 import {jumphelper} from "@/js/jumphelper";
 import {checkManager} from "@/js/jshelper";
+import { onMounted } from "vue";
+// import { postLog } from "@/js/apihelper";
+
+onMounted(()=>{
+  // postLog('访问-桌面选择页')
+})
 
 const beforeJumpToManager = ()=>{
   if(checkManager()){

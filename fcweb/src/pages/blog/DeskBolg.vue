@@ -18,7 +18,13 @@ import {jumphelper} from "@/js/jumphelper";
 import BlogMenuCom from "@/coms/blog/BlogMenuCom.vue";
 import BlogContentCom from "@/coms/blog/BlogContentCom.vue";
 import { checkManager } from '@/js/jshelper';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+import { postLog } from "@/js/apihelper";
+
+onMounted(()=>{
+  postLog('访问-桌面工作区')
+})
+
 
 const blogContent = ref(null);
 const handleJump = ()=>{

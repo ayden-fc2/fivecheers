@@ -6,6 +6,7 @@ import {ref, onMounted} from "vue";
 import { useStore } from "vuex";
 import { timeCorrect, checkManager } from "@/js/jshelper";
 import {getBirthdayListApi} from '@/js/apihelper'
+import {postLog} from "@/js/apihelper";
 
 // 获取最近的生日还有多少天
 const getClosestBirthday = () => {
@@ -43,6 +44,7 @@ onMounted(()=>{
   }
 })
 const jumpToYYM = ()=>{
+  postLog('跳转-旧版于眉')
   message.warn(`5s后跳转...`)
   setTimeout(()=>{
     message.info(`对抗磨损的小妙招`)

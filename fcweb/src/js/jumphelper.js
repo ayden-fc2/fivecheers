@@ -1,5 +1,5 @@
 import router from "@/router/router";
-import {postLog} from "@/js/apihelper";
+// import {postLog} from "@/js/apihelper";
 
 export const jumphelper = {
     jumpToSelect:()=>{
@@ -20,23 +20,23 @@ export const jumphelper = {
     },
     jumpToMyGit:()=>{
         router.replace('/mygit')
-        postLog('访问-我的开源')
+        // postLog('访问-我的开源')
     },
     jumpToMyMusic:()=>{
         router.replace('/mymusic')
-        postLog('访问-音乐')
+        // postLog('访问-音乐')
     },
     jumpToMyPlan:()=>{
         router.replace('/myplan')
-        postLog('访问-年度计划')
+        // postLog('访问-年度计划')
     },
     jumpToMySpace:()=>{
         router.replace('/myspace')
-        postLog('访问-我的空间')
+        // postLog('访问-我的空间')
     },
     jumpToMyTravel:()=>{
         router.replace('/mytravel')
-        postLog('访问-旅行日志')
+        // postLog('访问-旅行日志')
     },
     jumpToManagerPassword:()=>{
         router.replace('/phone/managerpassword')
@@ -48,7 +48,7 @@ export const jumphelper = {
     },
     jumpToMyBlog:()=>{
         router.push('/blog')
-        postLog('访问-我的博客')
+        // postLog('访问-我的博客')
     },
     jumpToHello:()=>{
         router.replace('/')

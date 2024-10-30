@@ -9,10 +9,12 @@ import {onMounted, ref} from "vue";
 import {message} from "ant-design-vue";
 import {getAmIDead, getPlanAllPlans, refreshDeadGift, refreshDeadTime} from "@/js/apihelper";
 import {checkAmIDead, timeCorrect} from "@/js/jshelper";
+import {postLog} from "@/js/apihelper";
 
 onMounted(()=>{
   initTargets()
   getInfo()
+  postLog('访问-手机人生逆旅')
 })
 //计划
 const initTargets = ()=>{
@@ -32,6 +34,7 @@ const getCurrentYearTargets = ()=>{
   if (tmp.length >0){
     currentYearTargets.value = tmp
   }
+  postLog('人生逆旅-查看'+currentYear.value)
 }
 const currentYear = ref(null)
 const allYearTargets = ref([])
@@ -85,6 +88,9 @@ const getInfo = ()=>{
     deadInfo.value = response.data
     deadInfo.value.time = timeCorrect(deadInfo.value.time)
     dead.value = checkAmIDead(deadInfo.value.time)
+    if(dead.value){
+      postLog('人生逆旅-我死了')
+    }
   })
   if (localStorage.getItem('managerSecret') && localStorage.getItem('managerSecret') === 'nzt100years'){
     manager.value = true
@@ -120,12 +126,15 @@ const handleUpdateGift = ()=>{
       if (response.data !== false){
         message.success('更新成功，已下载藏宝图')
         downloadFile(response.data)
+        postLog('人生逆旅-下载藏宝图')
       }else{
         message.error('密码错误')
+        postLog('人生逆旅-藏宝密码错误')
       }
     })
 }
 const downloadFile = (downloadFile)=>{
+  postLog('人生逆旅-下载遗书')
   window.location.href = downloadFile
 }
 

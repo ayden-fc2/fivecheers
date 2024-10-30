@@ -31,6 +31,8 @@ import {message} from "ant-design-vue";
 import OtherBlogMenuCom from "@/coms/blog/otherblog/OtherBlogMenuCom.vue";
 import OtherBlogContentCom from "@/coms/blog/otherblog/OtherBlogContentCom.vue";
 import OtherBlogCommentCom from "@/coms/blog/otherblog/OtherBlogCommentCom.vue";
+import { postLog } from "@/js/apihelper";
+
 
 
 const blogContent = ref(null);
@@ -45,6 +47,7 @@ onMounted(()=>{
   if(user.value){
     userLogined.value = true
   }
+  postLog('访问-桌面共享工作区')
 })
 
 const user = ref(null)

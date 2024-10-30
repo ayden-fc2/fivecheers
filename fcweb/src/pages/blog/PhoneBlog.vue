@@ -21,6 +21,13 @@ import {jumphelper} from "@/js/jumphelper";
 import BlogCommentCom from "@/coms/blog/BlogCommentCom.vue";
 import BlogContentPhoneCom from "@/coms/blog/BlogContentPhoneCom.vue";
 import BlogMenuPhoneCom from "@/coms/blog/BlogMenuPhoneCom.vue";
+import { onMounted } from "vue";
+import { postLog } from "@/js/apihelper";
+
+onMounted(()=>{
+  postLog('访问-手机工作区')
+})
+
 </script>
 
 <style scoped>

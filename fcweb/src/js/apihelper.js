@@ -1,5 +1,5 @@
 import axios from "axios";
-import {checkManager} from "@/js/jshelper";
+import {checkManager, initAuth} from "@/js/jshelper";
 
 //const gdMapKey = '1caf32ee46ec234c69a6a49e47db53e0'
 // const baseApi = 'http://localhost:4001'
@@ -19,34 +19,7 @@ export const postLog = (logOp)=>{
     if(checkManager()){
         return
     }
-    // 首次访问没拿到IP，杜绝ip未知（很丑的补丁）
-    if(!localStorage.getItem('ipAddress')){
-        // 获取ip
-        const getResult = getIpAddress()
-        getResult.then(response=>{
-            const ipAddress =
-                'location:'+response.data.country+response.data.province+response.data.area+response.data.city+
-                ' ip:'+response.data.ip+
-                ' isp:'+response.data.isp
-            localStorage.setItem('ipAddress',ipAddress)
-            // 直接post记录
-            const postUrl = baseApi + '/log/postNewLog'
-            const logUUID = localStorage.getItem('user') ? localStorage.getItem('user') : localStorage.getItem('UUID')
-            const logIpAddress = localStorage.getItem('ipAddress')
-            return axios.post(
-                postUrl,
-                null,
-                {
-                    params:{
-                        logOp:logOp,
-                        logUUID:logUUID,
-                        logIpAddress:logIpAddress
-                    }
-                }
-            )
-        })
-        return
-    }
+    initAuth()
     const postUrl = baseApi + '/log/postNewLog'
     const logUUID = localStorage.getItem('user') ? localStorage.getItem('user') : localStorage.getItem('UUID')
     const logIpAddress = localStorage.getItem('ipAddress')

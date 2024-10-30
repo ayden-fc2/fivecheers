@@ -23,6 +23,7 @@ onMounted(()=>{
     spaces.value = []
     getSpace()
   })
+  postLog('访问-手机我的空间')
 })
 const currentParams = ref({
   startIndex: 0,
@@ -57,7 +58,7 @@ const likeSpace = (spaceId, spaceIndex, spaceContent)=>{
       if (response.data){
         saveLikedData()
         message.success('谢谢喜欢:D')
-        postLog('空间点赞，内容：'+spaceContent)
+        postLog('空间点赞,'+spaceContent)
         spaces.value[spaceIndex].likeNum += 1
       }else {
         message.error('点赞失败')
@@ -74,6 +75,7 @@ const likeSpace = (spaceId, spaceIndex, spaceContent)=>{
 const getMore = ()=>{
   currentParams.value.startIndex += currentParams.value.length;
   getSpace()
+  postLog('查看更多-我的空间')
 }
 
 const likedData = ref([])
