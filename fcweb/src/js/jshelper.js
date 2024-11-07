@@ -46,7 +46,7 @@ export function debounce(func, wait) {
     };
 }
 
-export const initAuth = ()=>{
+export const initAuth = async ()=>{
     //获取UUID，ip，time
     const UUID = localStorage.getItem('UUID')
     const ipAddress = localStorage.getItem('ipAddress')
@@ -55,32 +55,29 @@ export const initAuth = ()=>{
     if (!UUID){
         localStorage.setItem('UUID',uuidv4())
     }
-    //没有ipAddress则赋予ipAddress
-    if (!ipAddress){
-        setIpAddress()
-    }
     //没有visitTime则赋予visitTime
     if (!visitTime){
         setVisitTime()
     }
-    //visitTime过期则更新ipAddress和visitTime
-    else if (visitTime !== getNowTime()){
+    //没有ipAddress则赋予ipAddress
+    if (!ipAddress || visitTime !== getNowTime()){
+        await setIpAddress()
         setVisitTime()
-        setIpAddress()
     }
 }
 
-const setIpAddress = ()=>{
-    const postResult = getIpAddress()
-    postResult.then(response=>{
+const setIpAddress = async () => {
+    try {
+        const response = await getIpAddress(); // 假设 getIpAddress() 返回一个 Promise
         const ipAddress =
-            'location:'+response.data.country+response.data.province+response.data.area+response.data.city+
-            ' ip:'+response.data.ip+
-            ' isp:'+response.data.isp
-        localStorage.setItem('ipAddress',ipAddress)
-    }).catch(e=>{
-        console.log('获取用户ip出错'+e)
-    })
+            'location:' + response.data.country + response.data.province + response.data.area + response.data.city +
+            ' ip:' + response.data.ip +
+            ' isp:' + response.data.isp;
+        localStorage.setItem('ipAddress', ipAddress);
+    } catch (e) {
+        console.log('获取用户ip出错' + e);
+        localStorage.setItem('ipAddress', e);
+    }
 }
 
 const setVisitTime = ()=>{

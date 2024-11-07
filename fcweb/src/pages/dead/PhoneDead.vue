@@ -13,6 +13,7 @@ onMounted(()=>{
   getAllBirthday()
 })
 
+const ifLunar = ref(false)
 const name = ref('')
 const birthDay = ref()
 const birthdayes = ref([])
@@ -94,7 +95,10 @@ const deleteBirth = (birthId) => {
     <HomeOutlined style="color: #fff;" @click="jumphelper.jumpToSelect()" class="home_icon"/>
     <!--增加一条-->
     <div class="add-container glass-card">
-      <a-input style="margin-bottom: 12px;" placeholder="请输入姓名" v-model:value="name"/>
+      <div class="date-container">
+        <a-input style="margin-bottom: 12px; width: 200px" placeholder="请输入姓名" v-model:value="name"/>
+        <a-checkbox style="margin-bottom: 12px;" v-model:checked="ifLunar">阴历</a-checkbox>
+      </div>
       <div class="date-container">
         <a-date-picker v-model:value="birthDay" type="date" placeholder="请选择生日"/>
         <a-button type="primary" @click="addBirthday">添加生日</a-button>
