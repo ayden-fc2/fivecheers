@@ -15,11 +15,11 @@ export const getIpAddress = ()=>{
     return axios.get(getUrl)
 }
 //记录访问操作
-export const postLog = (logOp)=>{
+export const postLog = async (logOp)=>{
     if(checkManager()){
         return
     }
-    initAuth()
+    await initAuth()
     const postUrl = baseApi + '/log/postNewLog'
     const logUUID = localStorage.getItem('user') ? localStorage.getItem('user') : localStorage.getItem('UUID')
     const logIpAddress = localStorage.getItem('ipAddress')

@@ -131,7 +131,7 @@ const copyContact = (type)=>{
           <!--介绍-->
           <div class="intro-container">
             <h1>Hello, <br/>I'm Ayden</h1>
-            <p>时啟轩</p>
+            <p>不事王侯，高尚其事。</p>
             <p>I'm a software developer, a book lover, as well as a traveler.</p>
           </div>
           <!--图片-->
