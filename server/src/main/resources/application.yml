@@ -9,7 +9,7 @@ spring:
   datasource:
     url: jdbc:mysql://www.fivecheers.com:3306/fivecheers
     username: fivecheers
-    password: nicai
+    password: 10708022
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 10 # 设置最大连接数
